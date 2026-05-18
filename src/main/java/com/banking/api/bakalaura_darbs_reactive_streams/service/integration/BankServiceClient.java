@@ -10,13 +10,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class BankServiceClient {
     private final ExternalServiceClient externalClient;
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BankServiceClient.class);
+//    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BankServiceClient.class);
 
     public BankServiceClient(@Qualifier("externalServiceClient") ExternalServiceClient externalClient) {
         this.externalClient = externalClient;
     }
     public Mono<BankTransferResponse> transfer(BankTransferRequest request) {
-        log.info("Processing bank transfer, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing bank transfer, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return externalClient.post(
                 "/api/external/bank/transfer",
                 request,

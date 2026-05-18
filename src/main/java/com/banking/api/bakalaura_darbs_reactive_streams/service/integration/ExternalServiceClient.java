@@ -8,14 +8,14 @@ import reactor.core.publisher.Mono;
 @Component
 public class ExternalServiceClient {
     private final WebClient webClient;
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ExternalServiceClient.class);
+//    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ExternalServiceClient.class);
 
     public ExternalServiceClient(WebClient externalServicesWebClient) {
         this.webClient = externalServicesWebClient;
     }
 
     public <T> Mono<T> post(String uri, Object requestBody, Class<T> responseType, String errorMessage) {
-        log.info("Processing post http call, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing post http call, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return webClient.post()
                 .uri(uri)
                 .bodyValue(requestBody)

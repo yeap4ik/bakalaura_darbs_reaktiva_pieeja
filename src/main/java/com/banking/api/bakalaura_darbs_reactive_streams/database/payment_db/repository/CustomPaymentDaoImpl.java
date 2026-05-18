@@ -17,7 +17,7 @@ public class CustomPaymentDaoImpl implements CustomPaymentDao {
 
     private final PaymentRepository paymentRepository;
     private final R2dbcEntityTemplate entityTemplate;
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CustomPaymentDaoImpl.class);
+//    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CustomPaymentDaoImpl.class);
 
     public CustomPaymentDaoImpl(PaymentRepository paymentRepository, R2dbcEntityTemplate entityTemplate) {
         this.paymentRepository = paymentRepository;
@@ -26,14 +26,14 @@ public class CustomPaymentDaoImpl implements CustomPaymentDao {
 
     @Override
     public Mono<Payment> findPaymentById(UUID id) {
-        log.info("Processing db search findPaymentById, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing db search findPaymentById, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return paymentRepository.findById(id)
                 .switchIfEmpty(Mono.error(new ResourceNotFoundException("Payment not found: " + id)));
     }
 
     @Override
     public Mono<Slice<Payment>> findPayments(Pageable pageable) {
-        log.info("Processing db search findPayments, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing db search findPayments, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         int pageSize = pageable.getPageSize();
         Query query = Query.empty().with(pageable).limit(pageSize + 1);
 

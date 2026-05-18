@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 public class PaymentController {
 
     private final PaymentService paymentService;
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PaymentController.class);
+//    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PaymentController.class);
 
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
@@ -30,19 +30,19 @@ public class PaymentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<PaymentResponse> processPayment(@RequestBody CreatePaymentRequest request) {
-        log.info("Processing POST, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing POST, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return paymentService.createPayment(request);
     }
 
     @GetMapping("/{id}")
     public Mono<PaymentResponse> getPaymentById(@PathVariable UUID id) {
-        log.info("Processing light GET, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing light GET, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return paymentService.getPaymentById(id);
     }
 
     @GetMapping("/search")
     public Mono<Slice<PaymentResponse>> searchPayments(Pageable pageable) {
-        log.info("Processing heavy search, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
+//        log.info("Processing heavy search, thread name={} (virtual={})", Thread.currentThread().getName(), Thread.currentThread().isVirtual());
         return paymentService.search(pageable);
     }
 }

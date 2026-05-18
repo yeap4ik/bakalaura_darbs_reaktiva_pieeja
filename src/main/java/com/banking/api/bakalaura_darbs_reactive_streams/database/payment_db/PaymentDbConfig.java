@@ -14,7 +14,7 @@ import org.springframework.transaction.reactive.TransactionalOperator;
 @EnableR2dbcRepositories(basePackages = "com.banking.api.bakalaura_darbs_reactive_streams.database.payment_db.repository")
 public class PaymentDbConfig {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PaymentDbConfig.class);
+//    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PaymentDbConfig.class);
 
     @Bean(name = {"r2dbcEntityTemplate", "paymentDbEntityTemplate"})
     public R2dbcEntityTemplate paymentDbEntityTemplate(ConnectionFactory connectionFactory) {
@@ -30,13 +30,13 @@ public class PaymentDbConfig {
 
     @Bean
     public TransactionalOperator paymentDbTransactionalOperator(ReactiveTransactionManager paymentDbTransactionManager) {
-        log.info("Creating TransactionalOperator for payment DB");
+//        log.info("Creating TransactionalOperator for payment DB");
         return TransactionalOperator.create(paymentDbTransactionManager);
     }
 
     private void logConnectionFactory(String component, ConnectionFactory connectionFactory) {
         ConnectionFactoryMetadata metadata = connectionFactory.getMetadata();
         String name = metadata != null ? metadata.getName() : "unknown";
-        log.info("Creating {} using ConnectionFactory: {} ({})", component, connectionFactory.getClass().getName(), name);
+//        log.info("Creating {} using ConnectionFactory: {} ({})", component, connectionFactory.getClass().getName(), name);
     }
 }
