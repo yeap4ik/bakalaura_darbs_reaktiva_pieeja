@@ -1,5 +1,8 @@
 package com.banking.api.bakalaura_darbs_reactive_streams;
 
+import io.r2dbc.pool.ConnectionPool;
+import io.r2dbc.pool.PoolMetrics;
+import io.r2dbc.spi.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
@@ -20,9 +23,16 @@ public class BakalauraDarbsReactiveStreamsApplication {
     }
 
     @Bean
-    ApplicationRunner startupLogger(Environment env) {
+    ApplicationRunner startupLogger(Environment env, ConnectionFactory connectionFactory) {
         return args -> {
             log.info("REACTIVE_STREAM_API_STARTED");
+            if (connectionFactory instanceof ConnectionPool pool) {
+                PoolMetrics metrics = pool.getMetrics().orElse(null);
+                if (metrics != null) {
+                    log.info("R2DBC pool size: allocated={}",
+                            metrics.getMaxAllocatedSize());
+                }
+            }
             log.info("Active profiles: {}", Arrays.toString(env.getActiveProfiles()));
             log.info("Virtual threads enabled: {}", env.getProperty("spring.threads.virtual.enabled"));
             log.info("Startup thread: {} (virtual={})",
